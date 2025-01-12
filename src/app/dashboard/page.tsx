@@ -1,6 +1,8 @@
 'use client';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { HeroParallax } from '@/components/ui/hero-parallax';
+import api, { setAccessToken } from '@/lib/axiosInstance';
 
 export const products = [
   {
@@ -98,6 +100,45 @@ export const products = [
   },
 ];
 
-export default function HeroParallax() {
-  return <HeroParallax products={products} />;
+export default function Dashboard() {
+  const [user, setUser] = useState<any>(null); // User data state
+  const [loading, setLoading] = useState(true); // Loading state
+  const router = useRouter();
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const token = localStorage.getItem('accessToken'); // Get token from localStorage
+        if (!token) {
+          console.warn('No access token found. Redirecting to login...');
+          router.push('/login');
+          return;
+        }
+
+        setAccessToken(token); // Set token in memory for Axios instance
+        const response = await api.get('/users/me'); // Fetch user data
+        setUser(response.data);
+      } catch {
+        console.error('Error fetching user details:');
+        router.push('/login'); // Redirect to login on error
+      } finally {
+        setLoading(false); // Stop loading spinner
+      }
+    };
+
+    fetchUser();
+  }, [router]);
+
+  if (loading) {
+    return <p>Loading...</p>; // Show loading spinner or message
+  }
+
+  if (!user) {
+    return <p>Redirecting...</p>;
+  }
+  return (
+    <div className="h-screen  bg-black">
+      <HeroParallax products={products} />
+    </div>
+  );
 }

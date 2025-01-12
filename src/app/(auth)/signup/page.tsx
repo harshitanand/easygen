@@ -1,38 +1,161 @@
 'use client';
-import React from 'react';
+import React, { useState } from 'react';
 import Label from '@/components/ui/label';
 import Input from '@/components/ui/input';
 import { cn } from '@/lib/utils';
+import axios from 'axios';
+import Alert from '@/components/ui/alert';
 
 export default function SignupForm() {
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log('Form submitted');
+  const [formData, setFormData] = useState({
+    firstname: '',
+    lastname: '',
+    email: '',
+    password: '',
+  });
+
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { id, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [id]: value,
+    }));
   };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    // Clear previous messages
+    setErrorMessage(null);
+    setSuccessMessage(null);
+
+    // Basic validation
+    if (
+      !formData.firstname ||
+      !formData.lastname ||
+      !formData.email ||
+      !formData.password
+    ) {
+      setErrorMessage('All fields are required!');
+      return;
+    }
+
+    if (!/^[\w.%+-]+@[\w.-]+\.[a-zA-Z]{2,}$/.test(formData.email)) {
+      setErrorMessage('Please enter a valid email address.');
+      return;
+    }
+
+    if (formData.password.length < 8) {
+      setErrorMessage('Password must be at least 8 characters long.');
+      return;
+    }
+
+    if (
+      !/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(
+        formData.password
+      )
+    ) {
+      setErrorMessage(
+        'Password must contain at least one letter, one number, and one special character.'
+      );
+      return;
+    }
+
+    // Submit the form data
+    try {
+      const response = await axios.post(
+        'http://localhost:8000/api/v1/users/signup',
+        formData
+      );
+
+      setSuccessMessage('Sign-up successful!');
+      console.log('Response data:', response.data);
+
+      // Clear the form
+      setFormData({
+        firstname: '',
+        lastname: '',
+        email: '',
+        password: '',
+      });
+    } catch (error: any) {
+      if (error.response && error.response.data) {
+        setErrorMessage(error.response.data.message || 'Something went wrong!');
+      } else {
+        setErrorMessage('Failed to connect to the server. Please try again.');
+      }
+    }
+  };
+
   return (
     <div className="max-w-md w-full mx-auto rounded-sm md:rounded-2xl p-4 md:p-8 shadow-2xl shadow-gray-500 bg-slate-200 dark:bg-black">
       <h2 className="font-bold text-center text-xl text-neutral-800 dark:text-neutral-200">
         SignUp to EasyGenerator
       </h2>
 
+      {/* Error Alert */}
+      {errorMessage && (
+        <Alert type="error" dismissible onDismiss={() => setErrorMessage(null)}>
+          {errorMessage}
+        </Alert>
+      )}
+
+      {/* Success Alert */}
+      {successMessage && (
+        <Alert
+          type="success"
+          dismissible
+          onDismiss={() => setSuccessMessage(null)}
+        >
+          {successMessage}
+        </Alert>
+      )}
+
       <form className="my-8" onSubmit={handleSubmit}>
         <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-2 mb-4">
           <LabelInputContainer>
             <Label htmlFor="firstname">First name</Label>
-            <Input id="firstname" placeholder="Tyler" type="text" />
+            <Input
+              id="firstname"
+              placeholder="Tyler"
+              type="text"
+              value={formData.firstname}
+              onChange={handleChange}
+            />
           </LabelInputContainer>
           <LabelInputContainer>
             <Label htmlFor="lastname">Last name</Label>
-            <Input id="lastname" placeholder="Durden" type="text" />
+            <Input
+              id="lastname"
+              placeholder="Durden"
+              type="text"
+              value={formData.lastname}
+              onChange={handleChange}
+            />
           </LabelInputContainer>
         </div>
         <LabelInputContainer className="mb-4">
           <Label htmlFor="email">Email Address</Label>
-          <Input id="email" placeholder="projectmayhem@fc.com" type="email" />
+          <Input
+            id="email"
+            placeholder="projectmayhem@fc.com"
+            type="email"
+            value={formData.email}
+            onChange={handleChange}
+          />
         </LabelInputContainer>
         <LabelInputContainer className="mb-4">
           <Label htmlFor="password">Password</Label>
-          <Input id="password" placeholder="••••••••" type="password" />
+          <Input
+            id="password"
+            placeholder="••••••••"
+            type="password"
+            value={formData.password}
+            onChange={handleChange}
+          />
         </LabelInputContainer>
 
         <button
@@ -42,16 +165,6 @@ export default function SignupForm() {
           Sign up &rarr;
           <BottomGradient />
         </button>
-
-        <p className="text-center mt-4">
-          {' '}
-          Already have an acount{' '}
-          <a href="/login" className="text-justify text-blue-500">
-            Login
-          </a>
-        </p>
-
-        <div className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-8 h-[1px] w-full" />
       </form>
     </div>
   );

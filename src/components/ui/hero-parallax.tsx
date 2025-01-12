@@ -10,7 +10,7 @@ import {
 import Image from 'next/image';
 import Link from 'next/link';
 
-const HeroParallax = ({
+export const HeroParallax = ({
   products,
 }: {
   products: {
@@ -157,5 +157,3 @@ export const ProductCard = ({
     </motion.div>
   );
 };
-
-export default { HeroParallax };
