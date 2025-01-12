@@ -1,7 +1,7 @@
 import { BackgroundBeamsWithCollision } from '@/components/ui/background-beams-with-collision';
 import { TypewriterEffect } from '@/components/ui/typewriter-effect';
 
-export const CommonComponent = () => {
+export default function CommonComponent() {
   const words = [
     {
       text: 'Build',
@@ -26,10 +26,10 @@ export const CommonComponent = () => {
   ];
 
   return (
-    <BackgroundBeamsWithCollision className="col-span-4 justify-center h-screen">
-      <div className="w-full  rounded-none text-center justify-center p-4 md:p-8 shadow-input text-white bg-black">
-        <div className="flex flex-col items-center justify-center ">
-          <p className="text-neutral-600 dark:text-neutral-200 text-base mb-10">
+    <BackgroundBeamsWithCollision className="col-span-4 h-screen md:h-full place-content-center text-center justify-center bg-black">
+      <div className="w-full h-screen rounded-none place-content-center text-center justify-center p-4 md:p-8 shadow-input text-white bg-black">
+        <div className="flex flex-col items-center justify-center h-[40rem] ">
+          <p className="text-neutral-600 dark:text-neutral-200 text-base  mb-10">
             The road to freedom starts from here
           </p>
           <TypewriterEffect words={words} />
@@ -45,6 +45,4 @@ export const CommonComponent = () => {
       </div>
     </BackgroundBeamsWithCollision>
   );
-};
-
-export default CommonComponent;
+}

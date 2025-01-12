@@ -1,4 +1,15 @@
+import { Geist, Geist_Mono } from 'next/font/google';
 import CommonComponent from './common';
+
+const geistSans = Geist({
+  variable: '--font-geist-sans',
+  subsets: ['latin'],
+});
+
+const geistMono = Geist_Mono({
+  variable: '--font-geist-mono',
+  subsets: ['latin'],
+});
 
 export default function AuthLayout({
   children,
@@ -6,11 +17,17 @@ export default function AuthLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="grid grid-cols-6">
-      <CommonComponent></CommonComponent>
-      <div className="col-span-2 place-content-center items-center justify-center text-black bg-red-200">
-        {children}
-      </div>
-    </div>
+    <html lang="en">
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased h-screen`}
+      >
+        <div className="grid grid-cols-6 h-screen">
+          {CommonComponent()}
+          <div className="col-span-2 h-screen w-full place-content-center items-center justify-center text-black bg-slate-200">
+            {children}
+          </div>
+        </div>
+      </body>
+    </html>
   );
 }

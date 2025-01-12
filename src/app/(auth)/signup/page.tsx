@@ -4,7 +4,7 @@ import Label from '@/components/ui/label';
 import Input from '@/components/ui/input';
 import { cn } from '@/lib/utils';
 
-export default function SignupFormDemo() {
+export default function SignupForm() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log('Form submitted');
