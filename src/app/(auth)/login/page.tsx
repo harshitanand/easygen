@@ -65,6 +65,7 @@ export default function LoginForm() {
           </Label>
           <Input
             id="email"
+            placeholder="projectmayhem@fc.com"
             type="email"
             value={formData.email}
             onChange={handleChange}
@@ -77,6 +78,7 @@ export default function LoginForm() {
           </Label>
           <Input
             id="password"
+            placeholder="••••••••"
             type="password"
             value={formData.password}
             onChange={handleChange}
