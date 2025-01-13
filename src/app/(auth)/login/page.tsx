@@ -1,7 +1,7 @@
 'use client';
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import axios from 'axios';
+import api from '@/lib/axiosInstance';
 import Alert from '@/components/ui/alert';
 import { setAccessToken } from '@/lib/axiosInstance';
 import Label from '@/components/ui/label';
@@ -31,11 +31,9 @@ export default function LoginForm() {
     }
 
     try {
-      const response = await axios.post(
-        'http://localhost:8000/api/v1/users/login',
-        formData,
-        { withCredentials: true }
-      );
+      const response = await api.post('/users/login', formData, {
+        withCredentials: true,
+      });
 
       const { accessToken } = response.data;
       setAccessToken(accessToken); // Save token in localStorage and memory

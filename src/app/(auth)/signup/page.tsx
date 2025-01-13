@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import Label from '@/components/ui/label';
 import Input from '@/components/ui/input';
 import { cn } from '@/lib/utils';
-import axios from 'axios';
+import api from '@/lib/axiosInstance';
 import Alert from '@/components/ui/alert';
 
 export default function SignupForm() {
@@ -66,10 +66,7 @@ export default function SignupForm() {
 
     // Submit the form data
     try {
-      const response = await axios.post(
-        'http://localhost:8000/api/v1/users/signup',
-        formData
-      );
+      const response = await api.post('/users/signup', formData);
 
       setSuccessMessage('Sign-up successful!');
       console.log('Response data:', response.data);

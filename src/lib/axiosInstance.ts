@@ -4,7 +4,7 @@ let accessToken: string | null = null;
 
 // Create Axios instance
 const api = axios.create({
-  baseURL: 'http://localhost:8000/api/v1',
+  baseURL: 'https://youthful-alexandrina-whiplash-96853164.koyeb.app/api/v1',
   withCredentials: true, // Include cookies in requests
 });
 
