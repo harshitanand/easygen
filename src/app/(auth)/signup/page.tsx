@@ -5,6 +5,7 @@ import Input from '@/components/ui/input';
 import { cn } from '@/lib/utils';
 import api from '@/lib/axiosInstance';
 import Alert from '@/components/ui/alert';
+import axios from 'axios';
 
 export default function SignupForm() {
   const [formData, setFormData] = useState({
