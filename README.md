@@ -1,7 +1,7 @@
 
-# **Frontend Application for EasyGen-AppGenerator**
+# **Frontend Application for EasyGene-AppGenerator**
 
-This repository contains the frontend code for the **EasyGenerator** platform. It is built with **Next.js**, **TypeScript**, and **TailwindCSS**. The project provides a robust user authentication system, protected routes, and a dynamic dashboard for logged-in users.
+This repository contains the frontend code for the **EasyGene** platform. It is built with **Next.js**, **TypeScript**, and **TailwindCSS**. The project provides a robust user authentication system, protected routes, and a dynamic dashboard for logged-in users.
 
 ---
 
@@ -61,8 +61,8 @@ This repository contains the frontend code for the **EasyGenerator** platform. I
 
 ### **2. Clone the Repository**
 ```bash
-git clone https://github.com/your-username/easygenerator-frontend.git
-cd easygenerator-frontend
+git clone https://github.com/harshitanand/easygen.git
+cd easygen
 ```
 
 ### **3. Install Dependencies**
