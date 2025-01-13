@@ -95,7 +95,6 @@ export default function SignupForm() {
       <h2 className="font-bold text-center text-xl text-neutral-800 dark:text-neutral-200">
         SignUp to EasyGenerator
       </h2>
-
       {/* Error Alert */}
       {errorMessage && (
         <Alert type="error" dismissible onDismiss={() => setErrorMessage(null)}>
@@ -165,6 +164,16 @@ export default function SignupForm() {
           Sign up &rarr;
           <BottomGradient />
         </button>
+
+        <p className="text-center mt-4">
+          {' '}
+          Already have an acount{' '}
+          <a href="/login" className="text-justify text-blue-500">
+            Login
+          </a>
+        </p>
+
+        <div className="bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-8 h-[1px] w-full" />
       </form>
     </div>
   );
