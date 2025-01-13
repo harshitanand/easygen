@@ -1,11 +1,10 @@
 // Input component extends from shadcnui - https://ui.shadcn.com/docs/components/input
-"use client";
-import * as React from "react";
-import { cn } from "@/lib/utils";
-import { useMotionTemplate, useMotionValue, motion } from "framer-motion";
+'use client';
+import * as React from 'react';
+import { cn } from '@/lib/utils';
+import { useMotionTemplate, useMotionValue, motion } from 'framer-motion';
 
-export interface InputProps
-  extends React.InputHTMLAttributes<HTMLInputElement> {}
+export type InputProps = React.InputHTMLAttributes<HTMLInputElement>;
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
   ({ className, type, ...props }, ref) => {
@@ -15,7 +14,11 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     const mouseX = useMotionValue(0);
     const mouseY = useMotionValue(0);
 
-    function handleMouseMove({ currentTarget, clientX, clientY }: any) {
+    function handleMouseMove({
+      currentTarget,
+      clientX,
+      clientY,
+    }: React.MouseEvent<HTMLDivElement>) {
       const { left, top } = currentTarget.getBoundingClientRect();
 
       mouseX.set(clientX - left);
@@ -26,7 +29,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         style={{
           background: useMotionTemplate`
         radial-gradient(
-          ${visible ? radius + "px" : "0px"} circle at ${mouseX}px ${mouseY}px,
+          ${visible ? radius + 'px' : '0px'} circle at ${mouseX}px ${mouseY}px,
           var(--blue-500),
           transparent 80%
         )
@@ -56,6 +59,6 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     );
   }
 );
-Input.displayName = "Input";
+Input.displayName = 'Input';
 
 export default Input;

@@ -1,10 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { HeroParallax } from '@/components/ui/hero-parallax';
 import api, { setAccessToken } from '@/lib/axiosInstance';
 
-export const products = [
+const products = [
   {
     title: 'Moonbeam',
     link: 'https://gomoonbeam.com',

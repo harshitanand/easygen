@@ -79,8 +79,8 @@ export const BackgroundBeamsWithCollision = ({
         <CollisionMechanism
           key={beam.initialX + 'beam-idx'}
           beamOptions={beam}
-          containerRef={containerRef}
-          parentRef={parentRef}
+          containerRef={containerRef as React.RefObject<HTMLDivElement>}
+          parentRef={parentRef as React.RefObject<HTMLDivElement>}
         />
       ))}
 
@@ -114,7 +114,7 @@ const CollisionMechanism = React.forwardRef<
       repeatDelay?: number;
     };
   }
->(({ parentRef, containerRef, beamOptions = {} }, ref) => {
+>(({ parentRef, containerRef, beamOptions = {} }) => {
   const beamRef = useRef<HTMLDivElement>(null);
   const [collision, setCollision] = useState<{
     detected: boolean;

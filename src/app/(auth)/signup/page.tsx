@@ -81,8 +81,8 @@ export default function SignupForm() {
         email: '',
         password: '',
       });
-    } catch (error: any) {
-      if (error.response && error.response.data) {
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error) && error.response && error.response.data) {
         setErrorMessage(error.response.data.message || 'Something went wrong!');
       } else {
         setErrorMessage('Failed to connect to the server. Please try again.');

@@ -37,8 +37,12 @@ export default function LoginForm() {
       const { accessToken } = response.data;
       setAccessToken(accessToken); // Save token in localStorage and memory
       router.push('/dashboard'); // Navigate to dashboard
-    } catch (error: any) {
-      setErrorMessage(error.response?.data?.message || 'Login failed!');
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+        setErrorMessage(error.response?.data?.message || 'Login failed!');
+      } else {
+        setErrorMessage('Login failed!');
+      }
     }
   };
 
