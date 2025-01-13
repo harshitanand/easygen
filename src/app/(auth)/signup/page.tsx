@@ -3,7 +3,8 @@ import React, { useState } from 'react';
 import Label from '@/components/ui/label';
 import Input from '@/components/ui/input';
 import { cn } from '@/lib/utils';
-import api from '@/lib/axiosInstance';
+import { useRouter } from 'next/navigation';
+import api, { setAccessToken } from '@/lib/axiosInstance';
 import Alert from '@/components/ui/alert';
 import axios from 'axios';
 
@@ -17,6 +18,7 @@ export default function SignupForm() {
 
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  const router = useRouter();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
@@ -71,6 +73,13 @@ export default function SignupForm() {
 
       setSuccessMessage('Sign-up successful!');
       console.log('Response data:', response.data);
+
+      const { token } = response.data; // Extract the access token
+      setAccessToken(token); // Store the token in memory
+      localStorage.setItem('accessToken', token); // Persist the token in localStorage
+
+      // Redirect to /dashboard
+      router.push('/dashboard');
 
       // Clear the form
       setFormData({
