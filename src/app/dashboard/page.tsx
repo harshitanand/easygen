@@ -141,17 +141,18 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="h-screen flex flex-col items-center justify-center bg-black">
-      <nav className="w-full flex justify-end p-4 bg-black shadow-md">
-        <button
-          onClick={logout}
-          className="px-6 py-2 rounded-full bg-gradient-to-r from-purple-500 to-indigo-500 text-white text-sm font-medium shadow-md transition-all duration-300 hover:scale-105 hover:shadow-lg"
-        >
-          Logout
-          <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-red-500 transition-all duration-300 group-hover:w-full"></span>
-        </button>
-      </nav>
-
+    <div className="w-full h-full bg-black">
+      <div className="flex flex-col items-center justify-center bg-black">
+        <nav className="w-full flex justify-end p-4 bg-black shadow-md">
+          <button
+            onClick={logout}
+            className="px-6 py-2 rounded-full bg-gradient-to-r from-purple-500 to-indigo-500 text-white text-sm font-medium shadow-md transition-all duration-300 hover:scale-105 hover:shadow-lg"
+          >
+            Logout
+            <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-red-500 transition-all duration-300 group-hover:w-full"></span>
+          </button>
+        </nav>
+      </div>
       <HeroParallax products={products} />
     </div>
   );
