@@ -74,9 +74,9 @@ export default function SignupForm() {
       setSuccessMessage('Sign-up successful!');
       console.log('Response data:', response.data);
 
-      const { token } = response.data; // Extract the access token
-      setAccessToken(token); // Store the token in memory
-      localStorage.setItem('accessToken', token); // Persist the token in localStorage
+      const { accessToken } = response.data; // Extract the access token
+      setAccessToken(accessToken); // Store the token in memory
+      localStorage.setItem('accessToken', accessToken); // Persist the token in localStorage
 
       // Redirect to /dashboard
       router.push('/dashboard');
